@@ -1,4 +1,4 @@
-# Dependency Graph
+# csr-checker
 
 A Rust style exercise: it validates CSR (*conflict serializable*) schedules and determines whether they are serializable by building a dependency graph and looking for cycles in it.
 
@@ -15,18 +15,21 @@ The format doesn't specify which resource an operation accesses, so all operatio
 
 ## Usage
 
-The schedule is hardcoded in `src/main.rs`:
-
-```rust
-DependencyGraph::build("w0,w1,w2,w3,w0")
-```
+Pass the schedule as a command-line argument:
 
 ```sh
-cargo run
+cargo run -- "w0,w1,w2,w3,w0"
+```
+
+If the argument is missing or the schedule is invalid, the program prints an error and exits with status 1.
+
+To run the tests:
+
+```sh
 cargo test
 ```
 
-For this schedule, the output is:
+For the schedule above, the output is:
 
 ```text
    ┌───────────────────────────────────────┐
