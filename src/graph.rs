@@ -75,7 +75,6 @@ impl Graph {
         for i in 0..self.nodes.len() {
             if let Some(chain) = self.check_cycles(i, &mut vec![i]) {
                 cycles.push(chain);
-                break;
             }
         }
         self.reset_visited();
