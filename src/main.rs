@@ -1,8 +1,18 @@
-use std::process;
+use std::{env, process};
 use csr_checker::{DependencyGraph};
 
 fn main() {
-    let mut dependency_graph = DependencyGraph::build("w0,w1,w2,w3,w0").unwrap_or_else(|err| {
+    let args: Vec<String> = env::args().collect();
+
+    let schedule = match args.get(1) {
+        Some(s) => s,
+        None => {
+            eprintln!("No valid schedule was provided");
+            process::exit(1);
+        }
+    };
+
+    let mut dependency_graph = DependencyGraph::build(schedule).unwrap_or_else(|err| {
         eprintln!("Error during graph creation: {}", err);
         process::exit(1);
     });
